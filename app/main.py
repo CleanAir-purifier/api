@@ -4,7 +4,7 @@ from typing import Optional
 from fastapi import FastAPI
 import pymongo
 
-from app.config import mongodb_settings
+from app.settings import mongodb_settings
 
 app = FastAPI()
 
@@ -12,8 +12,8 @@ client = pymongo.MongoClient(mongodb_settings)
 db = client.clean_air
 
 
-@app.get("/purifier_status")
-def purifier_status():
+@app.get("/purifier_status/{purifier_id}")
+def purifier_status(purifier_id: int):
     purifier_data = db.clean_air.find_one()
     return purifier_data['purifier']
 
