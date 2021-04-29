@@ -4,4 +4,4 @@ COPY requirements.txt ./
 
 RUN pip install -r requirements.txt
 
-COPY ./api-clean-air /api-clean-air
+COPY ./app /app

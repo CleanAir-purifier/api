@@ -2,7 +2,12 @@ version: "3"
 services:
   web:
     build: .
+    environment:
+      - MONGODB_PASS=
+      - PYTHONPATH=.
     volumes:
-      - .:/api-clean-air
+      - .:/app
     ports:
       - "80:80"
+    stdin_open: true
+    tty: true
