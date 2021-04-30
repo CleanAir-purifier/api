@@ -1,22 +1,22 @@
-import os
-
-from typing import Optional
 from fastapi import FastAPI, Response, status
 
-from app.settings import mongodb_settings
-from app.controllers import devices as devices_controller
+from app.controllers import mobile_sensors
+from app.controllers import purifiers
 
 app = FastAPI()
 
 
-@app.get("/device/{device_id}")
-def get_device(device_id: int, response: Response):
-    device = devices_controller.get_device_by_id(device_id)
-    if not device:
+@app.get("/purifier/{purifier_id}")
+def get_purifier(purifier_id: int, response: Response):
+    purifier = purifiers.get_purifier_by_id(purifier_id)
+    if not purifier:
         response.status_code = status.HTTP_404_NOT_FOUND
-    return device
+    return purifier
 
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Optional[str] = None):
-    return {"item_id": item_id, "q": q}
+@app.get("/mobile_sensor/{mobile_sensor_id}")
+def get_mobile_sensor(mobile_sensor_id: int, response: Response):
+    mobile_sensor = mobile_sensors.get_mobile_sensor_by_id(mobile_sensor_id)
+    if not mobile_sensor:
+        response.status_code = status.HTTP_404_NOT_FOUND
+    return mobile_sensor
