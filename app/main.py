@@ -1,21 +1,20 @@
 import os
 
 from typing import Optional
-from fastapi import FastAPI
-import pymongo
+from fastapi import FastAPI, Response, status
 
 from app.settings import mongodb_settings
+from app.controllers import devices as devices_controller
 
 app = FastAPI()
 
-client = pymongo.MongoClient(mongodb_settings)
-db = client.clean_air
 
-
-@app.get("/purifier_status/{purifier_id}")
-def purifier_status(purifier_id: int):
-    purifier_data = db.clean_air.find_one()
-    return purifier_data['purifier']
+@app.get("/device/{device_id}")
+def get_device(device_id: int, response: Response):
+    device = devices_controller.get_device_by_id(device_id)
+    if not device:
+        response.status_code = status.HTTP_404_NOT_FOUND
+    return device
 
 
 @app.get("/items/{item_id}")
