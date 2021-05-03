@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Response, status
 
-from app.controllers import mobile_sensors
-from app.controllers import purifiers
+from .controllers import mobile_sensors
+from .controllers import purifiers
 
 app = FastAPI()
 
