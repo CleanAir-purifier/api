@@ -5,9 +5,10 @@ services:
     environment:
       - MONGODB_PASS=
       - PYTHONPATH=.
+      - PORT=8000
     volumes:
-      - .:/app
+      - ./app:/app
     ports:
-      - "80:80"
+      - "8000:8000"
     stdin_open: true
     tty: true
