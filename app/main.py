@@ -40,6 +40,6 @@ def post_commands_mobile_sensor(response: Response, command: commands.CommandsMo
 
 
 @app.post("/commands_purifier/")
-def post_commands_mobile_sensor(response: Response, command: commands.CommandsPurifier):
+def post_commands_purifier(response: Response, command: commands.CommandsPurifier):
     response.status_code = status.HTTP_200_OK
     return commands.run("commands.purifier", command.dict())
