@@ -2,6 +2,7 @@ from fastapi import FastAPI, Response, status
 
 from .controllers import mobile_sensors
 from .controllers import purifiers
+from .controllers import commands
 
 app = FastAPI()
 
@@ -23,8 +24,22 @@ def get_mobile_sensor(mobile_sensor_id: int, response: Response):
 
 
 @app.patch("/mobile_sensor/{mobile_sensor_id}")
-def patch_mobile_sensor_name(mobile_sensor_id: int, response: Response, name: mobile_sensors.UpdateMobileSensor):
+def patch_mobile_sensor_name(mobile_sensor_id: int, response: Response,
+        name: mobile_sensors.UpdateMobileSensor):
+
     mobile_sensor = mobile_sensors.edit_mobile_sensor_name(mobile_sensor_id, name.dict())
     if not mobile_sensor:
         response.status_code = status.HTTP_404_NOT_FOUND
     return mobile_sensor
+
+
+@app.post("/commands_mobile_sensor/")
+def post_commands_mobile_sensor(response: Response, command: commands.CommandsMobileSensor):
+    response.status_code = status.HTTP_200_OK
+    return commands.run("commands.mobile_sensors", command.dict())
+
+
+@app.post("/commands_purifier/")
+def post_commands_mobile_sensor(response: Response, command: commands.CommandsPurifier):
+    response.status_code = status.HTTP_200_OK
+    return commands.run("commands.purifier", command.dict())
