@@ -46,6 +46,6 @@ def post_commands_purifier(response: Response, command: commands.CommandsPurifie
     return commands.run("commands.purifier", command.dict())
 
 @app.post("/user_token/")
-def post_user_token(response: Response, user_token: user_token.UserToken):
+def post_user_token(response: Response, user_token: users_token.UserToken):
     response.status_code = status.HTTP_200_OK
     return users_token.save_user_token(user_token)
