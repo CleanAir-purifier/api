@@ -20,3 +20,11 @@ def get_mobile_sensor(mobile_sensor_id: int, response: Response):
     if not mobile_sensor:
         response.status_code = status.HTTP_404_NOT_FOUND
     return mobile_sensor
+
+
+@app.patch("/mobile_sensor/{mobile_sensor_id}")
+def patch_mobile_sensor_name(mobile_sensor_id: int, response: Response, name: mobile_sensors.UpdateMobileSensor):
+    mobile_sensor = mobile_sensors.edit_mobile_sensor_name(mobile_sensor_id, name.dict())
+    if not mobile_sensor:
+        response.status_code = status.HTTP_404_NOT_FOUND
+    return mobile_sensor
