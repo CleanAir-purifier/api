@@ -3,6 +3,7 @@ from fastapi import FastAPI, Response, status
 from .controllers import mobile_sensors
 from .controllers import purifiers
 from .controllers import commands
+from .controllers import users_token
 
 app = FastAPI()
 
@@ -43,3 +44,8 @@ def post_commands_mobile_sensor(response: Response, command: commands.CommandsMo
 def post_commands_purifier(response: Response, command: commands.CommandsPurifier):
     response.status_code = status.HTTP_200_OK
     return commands.run("commands.purifier", command.dict())
+
+@app.post("/user_token/")
+def post_user_token(response: Response, user_token: user_token.UserToken):
+    response.status_code = status.HTTP_200_OK
+    return users_token.save_user_token(user_token)
